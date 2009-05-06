@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Formatter;
 import java.util.List;
 
+import org.apache.tapestry5.ioc.IOCUtilities;
 import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.ioc.RegistryBuilder;
 import org.apache.tapestry5.ioc.services.ServiceActivity;
@@ -49,11 +50,13 @@ public class RpcApplication {
 	}
 	 public RpcApplication(Class<?> ...classes ){
         startTime = System.currentTimeMillis();
+		IOCUtilities.addDefaultModules(builder);
         builder.add(RpcCoreModule.class);
-        
         builder.add(classes);
         
         registry = builder.build();
+        registry.performRegistryStartup();
+        
 		server = registry.getService(RpcServer.class);
 		endTime = System.currentTimeMillis();
 	}
