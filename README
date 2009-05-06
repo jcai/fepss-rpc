@@ -1,0 +1,68 @@
+Protocol Buffers RPC Server Implemention based on Mina(2.0-M5) and Protobuf(2.0.3)
+== Usage ==
+
+ses RpcServerCallTest.java
+
+1) define your service ,eg:test.proto
+
+package protobuf.socketrpc;
+
+option java_package = "com.fepss.rpc.test";
+option java_outer_classname = "TestProto";
+
+message User{
+	optional string userName=1;
+}
+message Result{
+	optional string result=1;
+	optional bool success=2;
+}
+
+service TestService {
+  rpc TestMethod(User) returns(Result);
+}
+
+2) generate service code
+protoc test.proto --java_out .
+
+3) implement your service.
+public class TestServiceImpl extends TestService{
+
+	@Override
+	public void testMethod(RpcController controller, User request,
+			RpcCallback<Result> done) {
+		Builder builder =Result.newBuilder().setResult("get user"+request.getUserName());
+		builder.setSuccess(true);
+		done.run(builder.build());
+	}
+}
+4) client call,eg:RpcServerCallTest.java
+		String host = "localhost";
+		int port=8081;
+		//start rpc server
+		RpcServer server = new RpcServer();
+		server.start(new TestServiceImpl(),host,port);
+		
+		//create client to call rpc
+		RpcChannelImpl channel = new RpcChannelImpl(host,port);
+		RpcController controller = channel.newRpcController();
+		Stub service = TestService.newStub(channel);
+		//request data
+		String reqdata = "Request Data";
+	    User request = User.newBuilder().setUserName(reqdata).build();
+
+	    //response callback
+		RpcCallback<Result> done=new RpcCallback<Result>(){
+			@Override
+			public void run(Result result){
+				Assert.assertEquals(result.getResult(),"get userRequest Data");
+				Assert.assertTrue(result.getSuccess());
+				
+			}};
+		//execute remote method
+		service.testMethod(controller, request, done);
+		
+		//stop server
+		server.stop();
+		
+5)feedback  Jun.Tsai AT gmail.com

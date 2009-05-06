@@ -1,4 +1,4 @@
-package protobuf.socketrpc;
+package protobuf.rpc;
 
 option java_package = "com.fepss.rpc.test";
 option java_outer_classname = "TestProto";

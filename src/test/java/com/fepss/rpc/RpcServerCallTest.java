@@ -28,12 +28,15 @@ public class RpcServerCallTest {
 		RpcServer server = new RpcServer();
 		server.start(new TestServiceImpl(),host,port);
 		
+		//create client to call rpc
 		RpcChannelImpl channel = new RpcChannelImpl(host,port);
 		RpcController controller = channel.newRpcController();
 		Stub service = TestService.newStub(channel);
+		//request data
 		String reqdata = "Request Data";
 	    User request = User.newBuilder().setUserName(reqdata).build();
 
+	    //response callback
 		RpcCallback<Result> done=new RpcCallback<Result>(){
 			@Override
 			public void run(Result result){
@@ -41,8 +44,10 @@ public class RpcServerCallTest {
 				Assert.assertTrue(result.getSuccess());
 				
 			}};
+		//execute remote method
 		service.testMethod(controller, request, done);
 		
+		//stop server
 		server.stop();
 
 	}
