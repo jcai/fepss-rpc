@@ -47,7 +47,7 @@ public class RpcApplication {
 	public RpcApplication() {
 		this(new Class<?>[0]);
 	}
-	 RpcApplication(Class<?> ...classes ){
+	 public RpcApplication(Class<?> ...classes ){
         startTime = System.currentTimeMillis();
         builder.add(RpcCoreModule.class);
         
