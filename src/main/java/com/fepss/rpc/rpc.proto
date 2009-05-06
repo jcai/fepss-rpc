@@ -17,6 +17,7 @@
 
 option java_package = "com.fepss.rpc";
 option java_outer_classname = "RpcProtobuf";
+option optimize_for = SPEED;
 
 
   // Possible error reasons
