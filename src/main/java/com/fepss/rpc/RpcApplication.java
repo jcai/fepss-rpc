@@ -15,8 +15,12 @@
  */
 package com.fepss.rpc;
 
+import java.io.IOException;
+
 import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.ioc.RegistryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * RPC Application
@@ -26,21 +30,30 @@ import org.apache.tapestry5.ioc.RegistryBuilder;
  * @since 0.1
  */
 public class RpcApplication {
+	private static final Logger logger = LoggerFactory.getLogger(RpcApplication.class);
 	private long startTime;
 
 	private final RegistryBuilder builder = new RegistryBuilder();
 
-	private long registryCreatedTime;
 	private Registry registry;
-	public RpcApplication(){
+
+	private RpcServer server;
+	public RpcApplication() throws IOException{
         startTime = System.currentTimeMillis();
         builder.add(RpcCoreModule.class);
         registry = builder.build();
+		server = registry.getService(RpcServer.class);
+		start();
+		long endTime = System.currentTimeMillis();
+		logger.info("start rpc server with "+(endTime-startTime)+" millis");
 	}
-	public void start(){
-//		registry.getService(RpcServeri.class)
-		
+	public void start() throws IOException{
+		server.start();
 	}
-	public final static void main(String[] args) {
+	public void stop(){
+		server.stop();
+	}
+	public final static void main(String[] args) throws IOException {
+		new RpcApplication();
 	}
 }

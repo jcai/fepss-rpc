@@ -23,13 +23,13 @@ public final class TestProto {
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.fepss.rpc.test.TestProto.internal_static_protobuf_socketrpc_User_descriptor;
+      return com.fepss.rpc.test.TestProto.internal_static_protobuf_rpc_User_descriptor;
     }
     
     @Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.fepss.rpc.test.TestProto.internal_static_protobuf_socketrpc_User_fieldAccessorTable;
+      return com.fepss.rpc.test.TestProto.internal_static_protobuf_rpc_User_fieldAccessorTable;
     }
     
     // optional string userName = 1;
@@ -188,13 +188,13 @@ public final class TestProto {
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.fepss.rpc.test.TestProto.internal_static_protobuf_socketrpc_Result_descriptor;
+      return com.fepss.rpc.test.TestProto.internal_static_protobuf_rpc_Result_descriptor;
     }
     
     @Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.fepss.rpc.test.TestProto.internal_static_protobuf_socketrpc_Result_fieldAccessorTable;
+      return com.fepss.rpc.test.TestProto.internal_static_protobuf_rpc_Result_fieldAccessorTable;
     }
     
     // optional string result = 1;
@@ -466,15 +466,15 @@ public final class TestProto {
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuf_socketrpc_User_descriptor;
+    internal_static_protobuf_rpc_User_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuf_socketrpc_User_fieldAccessorTable;
+      internal_static_protobuf_rpc_User_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuf_socketrpc_Result_descriptor;
+    internal_static_protobuf_rpc_Result_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuf_socketrpc_Result_fieldAccessorTable;
+      internal_static_protobuf_rpc_Result_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -484,30 +484,29 @@ public final class TestProto {
       descriptor;
   static {
     java.lang.String descriptorData =
-      "\n\ntest.proto\022\022protobuf.socketrpc\"\030\n\004User" +
-      "\022\020\n\010userName\030\001 \001(\t\")\n\006Result\022\016\n\006result\030\001" +
-      " \001(\t\022\017\n\007success\030\002 \001(\0102Q\n\013TestService\022B\n\n" +
-      "TestMethod\022\030.protobuf.socketrpc.User\032\032.p" +
-      "rotobuf.socketrpc.ResultB\037\n\022com.fepss.rp" +
-      "c.testB\tTestProto";
+      "\n\ntest.proto\022\014protobuf.rpc\"\030\n\004User\022\020\n\010us" +
+      "erName\030\001 \001(\t\")\n\006Result\022\016\n\006result\030\001 \001(\t\022\017" +
+      "\n\007success\030\002 \001(\0102E\n\013TestService\0226\n\nTestMe" +
+      "thod\022\022.protobuf.rpc.User\032\024.protobuf.rpc." +
+      "ResultB\037\n\022com.fepss.rpc.testB\tTestProto";
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_protobuf_socketrpc_User_descriptor =
+          internal_static_protobuf_rpc_User_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_protobuf_socketrpc_User_fieldAccessorTable = new
+          internal_static_protobuf_rpc_User_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_protobuf_socketrpc_User_descriptor,
+              internal_static_protobuf_rpc_User_descriptor,
               new java.lang.String[] { "UserName", },
               com.fepss.rpc.test.TestProto.User.class,
               com.fepss.rpc.test.TestProto.User.Builder.class);
-          internal_static_protobuf_socketrpc_Result_descriptor =
+          internal_static_protobuf_rpc_Result_descriptor =
             getDescriptor().getMessageTypes().get(1);
-          internal_static_protobuf_socketrpc_Result_fieldAccessorTable = new
+          internal_static_protobuf_rpc_Result_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_protobuf_socketrpc_Result_descriptor,
+              internal_static_protobuf_rpc_Result_descriptor,
               new java.lang.String[] { "Result", "Success", },
               com.fepss.rpc.test.TestProto.Result.class,
               com.fepss.rpc.test.TestProto.Result.Builder.class);

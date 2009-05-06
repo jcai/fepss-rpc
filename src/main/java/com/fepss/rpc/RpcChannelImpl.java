@@ -124,7 +124,7 @@ public class RpcChannelImpl implements RpcChannel {
 		// Check for error
 		if (rpcResponse.hasError()) {
 			com.fepss.rpc.RpcProtobuf.ErrorReason reason = rpcResponse.getErrorReason();
-			controller.setFailed(reason.name());
+			controller.setFailed(reason.name()+" : "+rpcResponse.getError());
 			return;
 		}
 

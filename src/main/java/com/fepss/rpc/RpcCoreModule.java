@@ -15,7 +15,12 @@
  */
 package com.fepss.rpc;
 
+import org.apache.mina.core.service.IoHandler;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.ServiceBinder;
+
+import com.fepss.rpc.impl.RpcIoHandler;
+import com.fepss.rpc.impl.RpcServerImpl;
 
 /**
  * RPC Core Module
@@ -24,6 +29,10 @@ import org.apache.tapestry5.ioc.MappedConfiguration;
  * @since 0.1
  */
 public class RpcCoreModule {
+	public static void bind(ServiceBinder binder){
+		binder.bind(RpcServer.class,RpcServerImpl.class);
+		binder.bind(IoHandler.class,RpcIoHandler.class);
+	}
 
     /**
      * Contributes factory defaults that may be overridden.
