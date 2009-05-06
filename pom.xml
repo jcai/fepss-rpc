@@ -66,4 +66,7 @@
       <url>http://app.fepss.com/nexus/content/repositories/fepss/</url>
     </repository>
   </distributionManagement>
+   <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 </project>
