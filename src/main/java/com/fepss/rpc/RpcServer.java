@@ -28,7 +28,7 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
 import com.fepss.rpc.codec.ProtobufMessageEncoder;
 import com.fepss.rpc.codec.ProtobufRequestDecoder;
-import com.fepss.rpc.test.TestServiceImpl;
+import com.google.protobuf.Service;
 
 /**
  * RPC Server
@@ -40,7 +40,7 @@ import com.fepss.rpc.test.TestServiceImpl;
 public class RpcServer {
 	private SocketAcceptor acceptor;
 	
-	public void start() throws IOException {
+	public void start(Service service) throws IOException {
 		ExecutorService executor = Executors.newCachedThreadPool();
 		int processorCount = Runtime.getRuntime().availableProcessors();
 		acceptor = new NioSocketAcceptor(processorCount);
@@ -48,7 +48,7 @@ public class RpcServer {
 		chain.addLast("executor", new ExecutorFilter(executor));
 		chain.addLast("codec",
 				new ProtocolCodecFilter(ProtobufMessageEncoder.class,ProtobufRequestDecoder.class));
-		acceptor.setHandler(new RpcIoHandler(new TestServiceImpl()));
+		acceptor.setHandler(new RpcIoHandler(service));
 		acceptor.bind(new InetSocketAddress("127.0.0.1",8081));
 	}
 	public void stop(){

@@ -5,8 +5,7 @@ import junit.framework.Assert;
 
 import org.testng.annotations.Test;
 
-import com.fepss.rpc.RpcChannelImpl;
-import com.fepss.rpc.RpcServer;
+import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.Result;
 import com.fepss.rpc.test.TestProto.TestService;
 import com.fepss.rpc.test.TestProto.User;
@@ -24,7 +23,7 @@ public class RpcServerCallTest {
 	@Test
 	public void testRpcServer() throws IOException {
 		RpcServer server = new RpcServer();
-		server.start();
+		server.start(new TestServiceImpl());
 		
 		RpcChannelImpl channel = new RpcChannelImpl("localhost",8081);
 		RpcController controller = channel.newRpcController();
