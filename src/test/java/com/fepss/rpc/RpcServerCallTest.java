@@ -22,10 +22,13 @@ public class RpcServerCallTest {
 	 */
 	@Test
 	public void testRpcServer() throws IOException {
+		String host = "localhost";
+		int port=8081;
+		//start rpc server
 		RpcServer server = new RpcServer();
-		server.start(new TestServiceImpl());
+		server.start(new TestServiceImpl(),host,port);
 		
-		RpcChannelImpl channel = new RpcChannelImpl("localhost",8081);
+		RpcChannelImpl channel = new RpcChannelImpl(host,port);
 		RpcController controller = channel.newRpcController();
 		Stub service = TestService.newStub(channel);
 		String reqdata = "Request Data";

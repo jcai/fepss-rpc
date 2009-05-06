@@ -40,7 +40,7 @@ import com.google.protobuf.Service;
 public class RpcServer {
 	private SocketAcceptor acceptor;
 	
-	public void start(Service service) throws IOException {
+	public void start(Service service,String host,int port) throws IOException {
 		ExecutorService executor = Executors.newCachedThreadPool();
 		int processorCount = Runtime.getRuntime().availableProcessors();
 		acceptor = new NioSocketAcceptor(processorCount);
@@ -49,7 +49,7 @@ public class RpcServer {
 		chain.addLast("codec",
 				new ProtocolCodecFilter(ProtobufMessageEncoder.class,ProtobufRequestDecoder.class));
 		acceptor.setHandler(new RpcIoHandler(service));
-		acceptor.bind(new InetSocketAddress("127.0.0.1",8081));
+		acceptor.bind(new InetSocketAddress(host,port));
 	}
 	public void stop(){
 		acceptor.unbind();
