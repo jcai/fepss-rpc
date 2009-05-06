@@ -1,0 +1,57 @@
+/* 
+ * Copyright 2009 The Corner Team.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ package com.fepss.rpc;
+
+option java_package = "com.fepss.rpc";
+option java_outer_classname = "RpcProtobuf";
+
+
+  // Possible error reasons
+enum ErrorReason {
+    BAD_REQUEST_DATA = 0;
+    BAD_REQUEST_PROTO = 1;
+    SERVICE_NOT_FOUND = 2;
+    METHOD_NOT_FOUND = 3;
+    RPC_ERROR = 4;
+    RPC_FAILED = 5;
+  }
+message Request {
+
+  // RPC service full name
+  required string service_name = 1;
+  
+  // RPC method name
+  required string method_name = 2;
+  
+  // RPC request proto
+  required bytes request_proto = 3;
+}
+
+message Response {
+
+  // RPC response proto
+  optional bytes response_proto = 1;
+  
+  // Eror, if any
+  optional string error = 2;
+  
+  // Was callback invoked
+  optional bool callback = 3 [default = false];
+  
+  
+  // Error Reason
+  optional ErrorReason error_reason = 4;
+}

@@ -1,0 +1,16 @@
+package protobuf.socketrpc;
+
+option java_package = "com.fepss.rpc.test";
+option java_outer_classname = "TestProto";
+
+message User{
+	optional string userName=1;
+}
+message Result{
+	optional string result=1;
+	optional bool success=2;
+}
+
+service TestService {
+  rpc TestMethod(User) returns(Result);
+}
