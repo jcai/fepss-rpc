@@ -1,10 +1,14 @@
-package com.fepss.rpc;
+package com.fepss.rpc.impl;
 import java.io.IOException;
 
 import junit.framework.Assert;
 
+import org.apache.mina.core.service.IoHandler;
 import org.testng.annotations.Test;
 
+import com.fepss.rpc.RpcChannelImpl;
+import com.fepss.rpc.RpcIoHandler;
+import com.fepss.rpc.RpcServer;
 import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.Result;
 import com.fepss.rpc.test.TestProto.TestService;
@@ -24,9 +28,10 @@ public class RpcServerCallTest {
 	public void testRpcServer() throws IOException {
 		String host = "localhost";
 		int port=8081;
+		IoHandler handler = new RpcIoHandler(new TestServiceImpl());
 		//start rpc server
-		RpcServer server = new RpcServer();
-		server.start(new TestServiceImpl(),host,port);
+		RpcServer server = new RpcServerImpl(host, port, handler);
+		server.start();
 		
 		//create client to call rpc
 		RpcChannelImpl channel = new RpcChannelImpl(host,port);
