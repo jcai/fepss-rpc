@@ -1,7 +1,7 @@
 Protocol Buffers RPC Server Implemention based on Mina(2.0-M5) and Protobuf(2.0.3)
 == Usage ==
 
-ses RpcServerCallTest.java
+ses RpcApplicationTest.java
 
 1) define your service ,eg:test.proto
 
@@ -36,33 +36,43 @@ public class TestServiceImpl extends TestService{
 		done.run(builder.build());
 	}
 }
-4) client call,eg:RpcServerCallTest.java
-		String host = "localhost";
-		int port=8081;
-		//start rpc server
-		RpcServer server = new RpcServer();
-		server.start(new TestServiceImpl(),host,port);
-		
-		//create client to call rpc
-		RpcChannelImpl channel = new RpcChannelImpl(host,port);
-		RpcController controller = channel.newRpcController();
-		Stub service = TestService.newStub(channel);
-		//request data
-		String reqdata = "Request Data";
-	    User request = User.newBuilder().setUserName(reqdata).build();
+4) client call,RpcApplicationTest.java
+		@Test
+	public void testRpc() throws IOException{
+		RpcApplication application = new RpcApplication(TestModule.class);
+		try{
+			application.start();
+			// create client to call rpc
+			RpcChannelImpl channel = new RpcChannelImpl(RpcConstants.DEFAULT_HOST,RpcConstants.DEFAULT_PORT);
+			RpcController controller = channel.newRpcController();
+			Stub service = TestService.newStub(channel);
+			// request data
+			String reqdata = "Request Data";
+			User request = User.newBuilder().setUserName(reqdata).build();
 
-	    //response callback
-		RpcCallback<Result> done=new RpcCallback<Result>(){
-			@Override
-			public void run(Result result){
-				Assert.assertEquals(result.getResult(),"get userRequest Data");
-				Assert.assertTrue(result.getSuccess());
-				
-			}};
-		//execute remote method
-		service.testMethod(controller, request, done);
+			// response callback
+			RpcCallback<Result> done = new RpcCallback<Result>() {
+				@Override
+				public void run(Result result) {
+					Assert.assertEquals(result.getResult(),
+							"get userRequest Data");
+					Assert.assertTrue(result.getSuccess());
+
+				}
+			};
+			// execute remote method
+			service.testMethod(controller, request, done);
+			Assert.assertFalse(controller.failed());
+			Assert.assertEquals(controller.errorText(), null);
+		}finally{
+			application.stop();
+		}
 		
-		//stop server
-		server.stop();
+	}
+	public static class TestModule{
+		public static void contributeIoHandler(MappedConfiguration<String,Service> configruation){
+			configruation.add(TestService.getDescriptor().getFullName(),new TestServiceImpl());
+		}
+	}
 		
 5)feedback  Jun.Tsai AT gmail.com
