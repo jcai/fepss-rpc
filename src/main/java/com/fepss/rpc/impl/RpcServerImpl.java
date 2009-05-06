@@ -28,8 +28,10 @@ import org.apache.mina.transport.socket.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.fepss.rpc.RpcConstants;
+import com.fepss.rpc.RpcSymbols;
 import com.fepss.rpc.RpcServer;
 import com.fepss.rpc.codec.ProtobufMessageEncoder;
 import com.fepss.rpc.codec.ProtobufRequestDecoder;
@@ -42,14 +44,15 @@ import com.fepss.rpc.codec.ProtobufRequestDecoder;
  * @since 0.1
  */
 public class RpcServerImpl implements RpcServer {
+	private static final Logger logger = LoggerFactory.getLogger(RpcServerImpl.class);
 	private SocketAcceptor acceptor;
 	private String host;
 	private int port;
 	private IoHandler ioHandler;
 	public RpcServerImpl(
-			@Inject @Symbol(RpcConstants.HOST)
+			@Inject @Symbol(RpcSymbols.HOST)
 			String host,
-			@Inject @Symbol(RpcConstants.PORT)
+			@Inject @Symbol(RpcSymbols.PORT)
 			int port,
 			@Inject
 			IoHandler rpcIoHandler
@@ -60,6 +63,7 @@ public class RpcServerImpl implements RpcServer {
 	}
 	
 	public void start() throws IOException {
+		logger.info("starting rpc server!");
 		ExecutorService executor = Executors.newCachedThreadPool();
 		int processorCount = Runtime.getRuntime().availableProcessors();
 		acceptor = new NioSocketAcceptor(processorCount);
@@ -74,6 +78,7 @@ public class RpcServerImpl implements RpcServer {
 	 * @see com.fepss.rpc.RpcServer#stop()
 	 */
 	public void stop(){
+		logger.info("stoping rpc server!");
 		acceptor.unbind();
 	}
 }

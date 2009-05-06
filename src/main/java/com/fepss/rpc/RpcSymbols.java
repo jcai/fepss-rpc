@@ -16,13 +16,14 @@
 package com.fepss.rpc;
 
 /**
- * constatns for rpc module
+ * rpc symbols
  * @author <a href="mailto:jun.tsai@gmail.com">Jun Tsai</a>
  * @version $Revision$
  * @since 0.1
  */
-public class RpcConstants {
-	public static final String DEFAULT_HOST="localhost";
-	public static final int DEFAULT_PORT=9090;
+public final class RpcSymbols {
+
+	public static final String HOST = "rpc.host";
+	public static final String PORT = "rpc.port";
 
 }

@@ -39,8 +39,8 @@ public class RpcCoreModule {
      */
     public static void contributeFactoryDefaults(MappedConfiguration<String, String> configuration)
     {
-    	configuration.add(RpcConstants.HOST,"localhost");
-    	configuration.add(RpcConstants.PORT,"9090");
+    	configuration.add(RpcSymbols.HOST,RpcConstants.DEFAULT_HOST);
+    	configuration.add(RpcSymbols.PORT,String.valueOf(RpcConstants.DEFAULT_PORT));
     	
     }
 }
