@@ -7,13 +7,8 @@
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
 
-	<name>Fepss Sms RPC Service</name>
+	<name>Fepss  RPC Core Service</name>
 	<dependencies>
-		<dependency>
-			<groupId>com.fepss.3rd</groupId>
-			<artifactId>surgesms</artifactId>
-			<version>20081027</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.mina</groupId>
 			<artifactId>mina-core</artifactId>
