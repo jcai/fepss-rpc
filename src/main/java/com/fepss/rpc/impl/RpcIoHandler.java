@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.mina.core.future.IoFutureListener;
+import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
 
@@ -119,7 +121,8 @@ public class RpcIoHandler extends IoHandlerAdapter {
 	//output response protobuf
 	 void outputResponse(IoSession session, Response rpcResponse)
 			throws IOException {
-		session.write(rpcResponse);
+		WriteFuture future = session.write(rpcResponse);
+		future.addListener(IoFutureListener.CLOSE);
 	}
 
 	/**
@@ -153,5 +156,4 @@ public class RpcIoHandler extends IoHandlerAdapter {
 		}
 		outputResponse(session, builder.build());
 	}
-
 }
