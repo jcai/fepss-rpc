@@ -18,6 +18,8 @@ package com.fepss.rpc;
 import java.net.InetSocketAddress;
 
 import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.core.future.IoFutureListener;
+import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
@@ -68,8 +70,8 @@ public class RpcChannelImpl implements RpcChannel {
 		return new RpcControllerImpl();
 	}
 
-	public void callMethod(MethodDescriptor method,
-			final RpcController controller, Message request,
+	public void callMethod(final MethodDescriptor method,
+			final RpcController controller, final Message request,
 			final Message responsePrototype, final RpcCallback<Message> done) {
 		// check rpc request
 		if (!request.isInitialized()) {
@@ -95,23 +97,28 @@ public class RpcChannelImpl implements RpcChannel {
 				handleResponse(responsePrototype, rpcResponse, controller, done);
 				session.close(true);
 			}
+
+			/**
+			 * @see org.apache.mina.core.service.IoHandlerAdapter#sessionOpened(org.apache.mina.core.session.IoSession)
+			 */
+			@Override
+			public void sessionOpened(IoSession session) throws Exception {
+    			// Create request protocol buffer
+    			Request rpcRequest = Request.newBuilder().setRequestProto(
+    					request.toByteString()).setServiceName(
+    					method.getService().getFullName()).setMethodName(
+    					method.getName()).build();
+    			// Write request
+    			 session.write(rpcRequest);
+    			}
 		});
 
 		// connect remote server
 		ConnectFuture cf = connector.connect(new InetSocketAddress(host, port));
 
-		cf.awaitUninterruptibly();// wait to connect remote server
 
 		try {
-			// Create request protocol buffer
-			Request rpcRequest = Request.newBuilder().setRequestProto(
-					request.toByteString()).setServiceName(
-					method.getService().getFullName()).setMethodName(
-					method.getName()).build();
-			// Write request
-			cf.getSession().write(rpcRequest);
-			//wait to close the session
-			cf.getSession().getCloseFuture().awaitUninterruptibly();
+			cf.awaitUninterruptibly();// wait to connect remote server
 		} finally {
 			connector.dispose();
 		}

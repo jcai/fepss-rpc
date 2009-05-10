@@ -21,8 +21,8 @@ import java.util.Map;
 
 import org.apache.mina.core.service.IoHandler;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.fepss.rpc.impl.RpcIoHandler;
@@ -48,7 +48,8 @@ public class PerformanceTest {
 	 * @param args
 	 * @throws IOException
 	 */
-	@Test(invocationCount = 100000, threadPoolSize = 1000)
+//	@Test(invocationCount = 100000, threadPoolSize = 1000)
+	@Test
 	public void testRpcServer() throws IOException {
 		// create client to call rpc
 		RpcChannelImpl channel = new RpcChannelImpl(host, port);
@@ -77,7 +78,7 @@ public class PerformanceTest {
 	private String host;
 	private int port;
 
-	@BeforeTest
+	@BeforeClass
 	public void setup() throws IOException {
 		host = "localhost";
 		port = 8081;
@@ -91,7 +92,7 @@ public class PerformanceTest {
 		server.start();
 	}
 
-	@AfterTest
+	@AfterClass
 	public void stopServer() {
 		server.stop();
 	}
