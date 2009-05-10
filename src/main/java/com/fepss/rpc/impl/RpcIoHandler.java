@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.apache.mina.core.future.IoFutureListener;
 import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.service.IoHandlerAdapter;
+import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 
 import com.fepss.rpc.RpcControllerImpl;
@@ -48,7 +49,7 @@ public class RpcIoHandler extends IoHandlerAdapter {
 	private Map<String, Service> services;
 	private final static Logger logger = Logger.getLogger(RpcIoHandler.class);
 
-	public RpcIoHandler(Map<String,Service> services) {
+	public RpcIoHandler(Map<String, Service> services) {
 		this.services = services;
 	}
 
@@ -60,8 +61,9 @@ public class RpcIoHandler extends IoHandlerAdapter {
 	public void messageReceived(IoSession session, Object message)
 			throws Exception {
 		Request rpcRequest = (Request) message;
-		if(rpcRequest==null){
-			throw new RpcException(ErrorReason.BAD_REQUEST_DATA,"request data is null!");
+		if (rpcRequest == null) {
+			throw new RpcException(ErrorReason.BAD_REQUEST_DATA,
+					"request data is null!");
 		}
 		// Get the service/method
 		Service service = services.get(rpcRequest.getServiceName());
@@ -118,8 +120,8 @@ public class RpcIoHandler extends IoHandlerAdapter {
 		outputResponse(session, rpcResponse);
 	}
 
-	//output response protobuf
-	 void outputResponse(IoSession session, Response rpcResponse)
+	// output response protobuf
+	void outputResponse(IoSession session, Response rpcResponse)
 			throws IOException {
 		WriteFuture future = session.write(rpcResponse);
 		future.addListener(IoFutureListener.CLOSE);
@@ -156,4 +158,14 @@ public class RpcIoHandler extends IoHandlerAdapter {
 		}
 		outputResponse(session, builder.build());
 	}
+
+	public void sessionIdle(IoSession session, IdleStatus status)
+			throws Exception {
+		session.close(true);
+	}
+
+	public void sessionOpened(IoSession session) throws Exception {
+		session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, 30);
+	}
+
 }

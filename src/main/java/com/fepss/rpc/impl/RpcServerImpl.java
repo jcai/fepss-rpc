@@ -61,21 +61,21 @@ public class RpcServerImpl implements RpcServer {
 
 	public void start() throws IOException {
 		logger.info("starting rpc server!");
-		ExecutorService executor = Executors.newCachedThreadPool();
+//		ExecutorService executor = Executors.newCachedThreadPool();
 		int processorCount = Runtime.getRuntime().availableProcessors();
 		acceptor = new NioSocketAcceptor(processorCount);
-		acceptor.setReuseAddress(true);
-		acceptor.getSessionConfig().setReuseAddress(true);// 设置每一个非主监听连接的端口可以重用
-		acceptor.getSessionConfig().setReceiveBufferSize(1024);// 设置输入缓冲区的大小
-		acceptor.getSessionConfig().setSendBufferSize(10240);// 设置输出缓冲区的大小
-		// 设置为非延迟发送，为true则不组装成大包发送，收到东西马上发出
-		acceptor.getSessionConfig().setTcpNoDelay(true);
-		// 设置主服务监听端口的监听队列的最大值为1000
-		acceptor.setBacklog(1000);
+	     acceptor.setReuseAddress(true);
+        acceptor.getSessionConfig().setReuseAddress(true);
+        acceptor.getSessionConfig().setReceiveBufferSize(1024);
+        acceptor.getSessionConfig().setSendBufferSize(1024);
+        acceptor.getSessionConfig().setTcpNoDelay(true);
+        acceptor.getSessionConfig().setSoLinger(-1);
+        acceptor.setBacklog(10240);
+
 		
 		acceptor.setDefaultLocalAddress(new InetSocketAddress(port));
 		DefaultIoFilterChainBuilder chain = acceptor.getFilterChain();
-		chain.addLast("executor", new ExecutorFilter(executor));
+//		chain.addLast("executor", new ExecutorFilter(executor));
 		chain.addLast("codec", new ProtocolCodecFilter(
 				ProtobufMessageEncoder.class, ProtobufRequestDecoder.class));
 		acceptor.setHandler(ioHandler);
