@@ -119,6 +119,9 @@ public class RpcChannelImpl implements RpcChannel {
 
 		try {
 			cf.awaitUninterruptibly();// wait to connect remote server
+			cf.await();
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
 		} finally {
 			connector.dispose();
 		}
