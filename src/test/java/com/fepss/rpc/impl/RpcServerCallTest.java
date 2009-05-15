@@ -7,6 +7,9 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.apache.mina.core.service.IoHandler;
+import org.easymock.EasyMock;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.fepss.rpc.RpcChannelImpl;
@@ -21,51 +24,27 @@ import com.google.protobuf.RpcController;
 import com.google.protobuf.Service;
 
 public class RpcServerCallTest {
-
-	/**
-	 * @param args
-	 * @throws IOException
-	 */
-	@Test
-	public void testServiceNotFoundRpcServer() throws IOException {
-		String host = "localhost";
-		int port = 8081;
+	private RpcServerImpl server;
+	private int port;
+	private String host;
+	@BeforeTest
+	void setUpServer() throws IOException{
+		host = "localhost";
+		port = 8081;
 		Map<String, Service> services = new HashMap<String, Service>();
-		services.put("testService", new TestServiceImpl());
+		services.put(TestService.getDescriptor().getFullName(), new TestServiceImpl());
 		IoHandler handler = new RpcIoHandler(services);
 
 		// start rpc server
-		RpcServer server = new RpcServerImpl(host, port, handler);
-		try {
-			server.start();
-
-			// create client to call rpc
-			RpcChannelImpl channel = new RpcChannelImpl(host, port);
-			RpcController controller = channel.newRpcController();
-			Stub service = TestService.newStub(channel);
-			// request data
-			String reqdata = "Request Data";
-			User request = User.newBuilder().setUserName(reqdata).build();
-
-			// response callback
-			RpcCallback<Result> done = new RpcCallback<Result>() {
-				@Override
-				public void run(Result result) {
-					Assert.assertEquals(result.getResult(),
-							"get userRequest Data");
-					Assert.assertTrue(result.getSuccess());
-
-				}
-			};
-			// execute remote method
-			service.testMethod(controller, request, done);
-			Assert.assertTrue(controller.failed());
-			Assert.assertEquals(controller.errorText(), "SERVICE_NOT_FOUND : could not find service: protobuf.rpc.TestService");
-		} finally {
-			// stop server
-			server.stop();
-		}
+		server = new RpcServerImpl(host, port, handler);
+		server.start();
 	}
+	@AfterTest
+	void stopServer(){
+		server.stop();
+	}
+
+	
 
 	/**
 	 * @param args
@@ -73,17 +52,12 @@ public class RpcServerCallTest {
 	 */
 	@Test
 	public void testRpcServer() throws IOException {
-		String host = "localhost";
-		int port = 8081;
-		Map<String, Service> services = new HashMap<String, Service>();
-		services.put("protobuf.rpc.TestService", new TestServiceImpl());
-		IoHandler handler = new RpcIoHandler(services);
+		final RpcController mock = EasyMock.createMock(RpcController.class);
+		mock.reset();
+		EasyMock.replay(mock);
+		
 
-		// start rpc server
-		RpcServer server = new RpcServerImpl(host, port, handler);
 		try {
-			server.start();
-
 			// create client to call rpc
 			RpcChannelImpl channel = new RpcChannelImpl(host, port);
 			RpcController controller = channel.newRpcController();
@@ -99,6 +73,7 @@ public class RpcServerCallTest {
 					Assert.assertEquals(result.getResult(),
 							"get userRequest Data");
 					Assert.assertTrue(result.getSuccess());
+					mock.reset();
 
 				}
 			};
@@ -106,9 +81,39 @@ public class RpcServerCallTest {
 			service.testMethod(controller, request, done);
 			Assert.assertFalse(controller.failed());
 			Assert.assertEquals(controller.errorText(), null);
+			EasyMock.verify(mock);
 		} finally {
-			// stop server
-			server.stop();
+		}
+	}
+	/**
+	 * @param args
+	 * @throws IOException
+	 */
+	@Test
+	public void testFailRpcServer() throws IOException {
+		try {
+			// create client to call rpc
+			RpcChannelImpl channel = new RpcChannelImpl(host, port);
+			RpcController controller = channel.newRpcController();
+			Stub service = TestService.newStub(channel);
+			// request data
+			String reqdata = "fail";
+			User request = User.newBuilder().setUserName(reqdata).build();
+
+			// response callback
+			RpcCallback<Result> done = new RpcCallback<Result>() {
+				@Override
+				public void run(Result result) {
+					Assert.fail("should not be here!");
+					
+
+				}
+			};
+			// execute remote method
+			service.testMethod(controller, request, done);
+			Assert.assertTrue(controller.failed());
+			Assert.assertEquals(controller.errorText(), "RPC_ERROR : java.lang.RuntimeException: try to throw exception!");
+		} finally {
 		}
 	}
 }

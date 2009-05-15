@@ -33,6 +33,9 @@ public class TestServiceImpl extends TestService{
 	@Override
 	public void testMethod(RpcController controller, User request,
 			RpcCallback<Result> done) {
+		if(request.getUserName().equals("fail")){
+			throw new RuntimeException("try to throw exception!");
+		}
 		Builder builder =Result.newBuilder().setResult("get user"+request.getUserName());
 		builder.setSuccess(true);
 		done.run(builder.build());

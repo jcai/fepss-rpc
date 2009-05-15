@@ -18,8 +18,6 @@ package com.fepss.rpc;
 import java.net.InetSocketAddress;
 
 import org.apache.mina.core.future.ConnectFuture;
-import org.apache.mina.core.future.IoFutureListener;
-import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
@@ -93,8 +91,12 @@ public class RpcChannelImpl implements RpcChannel {
 			@Override
 			public void messageReceived(IoSession session, Object message)
 					throws Exception {
+				if(logger.isDebugEnabled()){
+					logger.debug("received from server");
+				}
 				Response rpcResponse = (Response) message;
 				handleResponse(responsePrototype, rpcResponse, controller, done);
+				//处理完请求，立即关闭
 				session.close(true);
 			}
 
@@ -103,6 +105,9 @@ public class RpcChannelImpl implements RpcChannel {
 			 */
 			@Override
 			public void sessionOpened(IoSession session) throws Exception {
+				if(logger.isDebugEnabled()){
+					logger.debug("open session");
+				}
     			// Create request protocol buffer
     			Request rpcRequest = Request.newBuilder().setRequestProto(
     					request.toByteString()).setServiceName(
@@ -119,9 +124,7 @@ public class RpcChannelImpl implements RpcChannel {
 
 		try {
 			cf.awaitUninterruptibly();// wait to connect remote server
-			cf.await();
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
+			cf.getSession().getCloseFuture().awaitUninterruptibly();
 		} finally {
 			connector.dispose();
 		}
@@ -130,7 +133,9 @@ public class RpcChannelImpl implements RpcChannel {
 	private void handleResponse(Message responsePrototype,
 			Response rpcResponse, RpcController controller,
 			RpcCallback<Message> callback) {
-
+		if(logger.isDebugEnabled()){
+			logger.debug("handler response");
+		}
 		// Check for error
 		if (rpcResponse.hasError()) {
 			com.fepss.rpc.RpcProtobuf.ErrorReason reason = rpcResponse.getErrorReason();

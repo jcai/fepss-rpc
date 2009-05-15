@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.mina.core.service.IoHandler;
+import org.easymock.EasyMock;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -51,6 +52,9 @@ public class PerformanceTest {
 //	@Test(invocationCount = 100000, threadPoolSize = 1000)
 	@Test
 	public void testRpcServer() throws IOException {
+		final RpcController mock = EasyMock.createMock(RpcController.class);
+		mock.reset();
+		EasyMock.replay(mock);
 		// create client to call rpc
 		RpcChannelImpl channel = new RpcChannelImpl(host, port);
 		RpcController controller = channel.newRpcController();
@@ -65,6 +69,7 @@ public class PerformanceTest {
 			public void run(Result result) {
 				Assert.assertEquals(result.getResult(), "get userRequest Data");
 				Assert.assertTrue(result.getSuccess());
+				mock.reset();
 
 			}
 		};
@@ -72,6 +77,7 @@ public class PerformanceTest {
 		service.testMethod(controller, request, done);
 		Assert.assertFalse(controller.failed());
 		Assert.assertEquals(controller.errorText(), null);
+		EasyMock.verify(mock);
 	}
 
 	private RpcServerImpl server;
