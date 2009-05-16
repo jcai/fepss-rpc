@@ -8,7 +8,9 @@ import junit.framework.Assert;
 
 import org.apache.mina.core.service.IoHandler;
 import org.easymock.EasyMock;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -27,7 +29,7 @@ public class RpcServerCallTest {
 	private RpcServerImpl server;
 	private int port;
 	private String host;
-	@BeforeTest
+	@BeforeClass
 	void setUpServer() throws IOException{
 		host = "localhost";
 		port = 8081;
@@ -39,7 +41,7 @@ public class RpcServerCallTest {
 		server = new RpcServerImpl(host, port, handler);
 		server.start();
 	}
-	@AfterTest
+	@AfterClass
 	void stopServer(){
 		server.stop();
 	}
