@@ -1,4 +1,4 @@
-package com.fepss.rpc;
+package com.fepss.rpc.server;
 
 import java.io.IOException;
 

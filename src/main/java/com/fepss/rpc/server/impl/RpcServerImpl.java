@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fepss.rpc.impl;
+package com.fepss.rpc.server.impl;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -28,10 +28,10 @@ import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fepss.rpc.RpcServer;
 import com.fepss.rpc.RpcSymbols;
 import com.fepss.rpc.codec.ProtobufMessageEncoder;
 import com.fepss.rpc.codec.ProtobufRequestDecoder;
+import com.fepss.rpc.server.RpcServer;
 
 /**
  * RPC Server
@@ -80,7 +80,7 @@ public class RpcServerImpl implements RpcServer {
 	}
 
 	/**
-	 * @see com.fepss.rpc.RpcServer#stop()
+	 * @see com.fepss.rpc.server.RpcServer#stop()
 	 */
 	public void stop() {
 		logger.info("stoping rpc server!");

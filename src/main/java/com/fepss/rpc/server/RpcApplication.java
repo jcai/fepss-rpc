@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fepss.rpc;
+package com.fepss.rpc.server;
 
 import java.io.IOException;
 import java.util.Formatter;
@@ -27,6 +27,8 @@ import org.apache.tapestry5.ioc.services.ServiceActivityScoreboard;
 import org.apache.tapestry5.ioc.services.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fepss.rpc.RpcCoreModule;
 
 /**
  * RPC Application

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fepss.rpc;
+package com.fepss.rpc.client;
 
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;

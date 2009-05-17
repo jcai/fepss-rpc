@@ -7,6 +7,8 @@ import junit.framework.Assert;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.testng.annotations.Test;
 
+import com.fepss.rpc.client.RpcChannelImpl;
+import com.fepss.rpc.server.RpcApplication;
 import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.Result;
 import com.fepss.rpc.test.TestProto.TestService;

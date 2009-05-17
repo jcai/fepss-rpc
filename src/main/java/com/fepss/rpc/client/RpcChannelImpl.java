@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fepss.rpc;
+package com.fepss.rpc.client;
 
 import java.net.InetSocketAddress;
 
@@ -26,9 +26,10 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fepss.rpc.RpcProtobuf.ErrorReason;
-import com.fepss.rpc.RpcProtobuf.Request;
-import com.fepss.rpc.RpcProtobuf.Response;
+import com.fepss.rpc.RpcException;
+import com.fepss.rpc.client.RpcProtobuf.ErrorReason;
+import com.fepss.rpc.client.RpcProtobuf.Request;
+import com.fepss.rpc.client.RpcProtobuf.Response;
 import com.fepss.rpc.codec.ProtobufMessageEncoder;
 import com.fepss.rpc.codec.ProtobufResponseDecoder;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -138,7 +139,7 @@ public class RpcChannelImpl implements RpcChannel {
 		}
 		// Check for error
 		if (rpcResponse.hasError()) {
-			com.fepss.rpc.RpcProtobuf.ErrorReason reason = rpcResponse.getErrorReason();
+			com.fepss.rpc.client.RpcProtobuf.ErrorReason reason = rpcResponse.getErrorReason();
 			controller.setFailed(reason.name()+" : "+rpcResponse.getError());
 			return;
 		}

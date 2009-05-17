@@ -1,4 +1,4 @@
-package com.fepss.rpc.impl;
+package com.fepss.rpc.server.impl;
 
 
 import java.io.IOException;
@@ -11,9 +11,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.fepss.rpc.RpcException;
-import com.fepss.rpc.RpcProtobuf.ErrorReason;
-import com.fepss.rpc.RpcProtobuf.Request;
-import com.fepss.rpc.RpcProtobuf.Response;
+import com.fepss.rpc.client.RpcProtobuf.ErrorReason;
+import com.fepss.rpc.client.RpcProtobuf.Request;
+import com.fepss.rpc.client.RpcProtobuf.Response;
+import com.fepss.rpc.server.impl.RpcIoHandler;
 import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.User;
 import com.google.protobuf.Service;
@@ -63,7 +64,7 @@ public class RpcIoHandlerTest {
 		services.put("testService",new TestServiceImpl());
 		IoHandler handler = new RpcIoHandler(services){
 			/**
-			 * @see com.fepss.rpc.impl.RpcIoHandler#outputResponse(org.apache.mina.core.session.IoSession, com.fepss.rpc.RpcProtobuf.Response)
+			 * @see com.fepss.rpc.server.impl.RpcIoHandler#outputResponse(org.apache.mina.core.session.IoSession, com.fepss.rpc.client.RpcProtobuf.Response)
 			 */
 			@Override
 			void outputResponse(IoSession session, Response rpcResponse)

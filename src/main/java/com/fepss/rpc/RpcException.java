@@ -15,7 +15,7 @@
  */
 package com.fepss.rpc;
 
-import com.fepss.rpc.RpcProtobuf.ErrorReason;
+import com.fepss.rpc.client.RpcProtobuf.ErrorReason;
 
 /**
  * rpc call exception.

@@ -8,8 +8,9 @@ import java.util.Map;
 import org.apache.mina.core.service.IoHandler;
 import org.testng.Assert;
 
-import com.fepss.rpc.impl.RpcIoHandler;
-import com.fepss.rpc.impl.RpcServerImpl;
+import com.fepss.rpc.client.RpcChannelImpl;
+import com.fepss.rpc.server.impl.RpcIoHandler;
+import com.fepss.rpc.server.impl.RpcServerImpl;
 import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.Result;
 import com.fepss.rpc.test.TestProto.TestService;

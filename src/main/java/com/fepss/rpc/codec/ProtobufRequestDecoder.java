@@ -20,9 +20,9 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoderAdapter;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
-import com.fepss.rpc.RpcProtobuf;
-import com.fepss.rpc.RpcProtobuf.Request;
-import com.fepss.rpc.RpcProtobuf.Request.Builder;
+import com.fepss.rpc.client.RpcProtobuf;
+import com.fepss.rpc.client.RpcProtobuf.Request;
+import com.fepss.rpc.client.RpcProtobuf.Request.Builder;
 
 /**
  * provide some protocol buffer decoder.

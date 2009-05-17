@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fepss.rpc.impl;
+package com.fepss.rpc.server.impl;
 
 import java.io.IOException;
 import java.util.Map;
@@ -25,12 +25,12 @@ import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 
-import com.fepss.rpc.RpcControllerImpl;
 import com.fepss.rpc.RpcException;
-import com.fepss.rpc.RpcProtobuf.ErrorReason;
-import com.fepss.rpc.RpcProtobuf.Request;
-import com.fepss.rpc.RpcProtobuf.Response;
-import com.fepss.rpc.RpcProtobuf.Response.Builder;
+import com.fepss.rpc.client.RpcControllerImpl;
+import com.fepss.rpc.client.RpcProtobuf.ErrorReason;
+import com.fepss.rpc.client.RpcProtobuf.Request;
+import com.fepss.rpc.client.RpcProtobuf.Response;
+import com.fepss.rpc.client.RpcProtobuf.Response.Builder;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.RpcCallback;

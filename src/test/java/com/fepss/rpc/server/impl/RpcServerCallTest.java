@@ -1,4 +1,4 @@
-package com.fepss.rpc.impl;
+package com.fepss.rpc.server.impl;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,8 +14,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.fepss.rpc.RpcChannelImpl;
-import com.fepss.rpc.RpcServer;
+import com.fepss.rpc.client.RpcChannelImpl;
+import com.fepss.rpc.server.RpcServer;
+import com.fepss.rpc.server.impl.RpcIoHandler;
+import com.fepss.rpc.server.impl.RpcServerImpl;
 import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.Result;
 import com.fepss.rpc.test.TestProto.TestService;

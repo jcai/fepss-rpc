@@ -6,7 +6,7 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 import org.easymock.EasyMock;
 import org.testng.annotations.Test;
 
-import com.fepss.rpc.RpcProtobuf.Request;
+import com.fepss.rpc.client.RpcProtobuf.Request;
 import com.fepss.rpc.test.TestProto.User;
 import com.google.protobuf.Message;
 

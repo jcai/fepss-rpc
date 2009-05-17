@@ -19,8 +19,9 @@ import org.apache.mina.core.service.IoHandler;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 
-import com.fepss.rpc.impl.RpcIoHandler;
-import com.fepss.rpc.impl.RpcServerImpl;
+import com.fepss.rpc.server.RpcServer;
+import com.fepss.rpc.server.impl.RpcIoHandler;
+import com.fepss.rpc.server.impl.RpcServerImpl;
 
 /**
  * RPC Core Module

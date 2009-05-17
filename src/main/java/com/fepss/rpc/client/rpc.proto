@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package com.fepss.rpc;
+ package com.fepss.rpc.client;
 
-option java_package = "com.fepss.rpc";
+option java_package = "com.fepss.rpc.client";
 option java_outer_classname = "RpcProtobuf";
 option optimize_for = SPEED;
 
