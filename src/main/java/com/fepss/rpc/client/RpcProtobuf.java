@@ -7,7 +7,8 @@ public final class RpcProtobuf {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public static enum ErrorReason {
+  public static enum ErrorReason
+      implements com.google.protobuf.ProtocolMessageEnum {
     BAD_REQUEST_DATA(0, 0),
     BAD_REQUEST_PROTO(1, 1),
     SERVICE_NOT_FOUND(2, 2),
@@ -93,18 +94,21 @@ public final class RpcProtobuf {
     }
     
     // required string service_name = 1;
+    public static final int SERVICE_NAME_FIELD_NUMBER = 1;
     private boolean hasServiceName;
     private java.lang.String serviceName_ = "";
     public boolean hasServiceName() { return hasServiceName; }
     public java.lang.String getServiceName() { return serviceName_; }
     
     // required string method_name = 2;
+    public static final int METHOD_NAME_FIELD_NUMBER = 2;
     private boolean hasMethodName;
     private java.lang.String methodName_ = "";
     public boolean hasMethodName() { return hasMethodName; }
     public java.lang.String getMethodName() { return methodName_; }
     
     // required bytes request_proto = 3;
+    public static final int REQUEST_PROTO_FIELD_NUMBER = 3;
     private boolean hasRequestProto;
     private com.google.protobuf.ByteString requestProto_ = com.google.protobuf.ByteString.EMPTY;
     public boolean hasRequestProto() { return hasRequestProto; }
@@ -191,6 +195,17 @@ public final class RpcProtobuf {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
+    public static com.fepss.rpc.client.RpcProtobuf.Request parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input).buildParsed();
+    }
+    public static com.fepss.rpc.client.RpcProtobuf.Request parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistry extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input, extensionRegistry)
+               .buildParsed();
+    }
     public static com.fepss.rpc.client.RpcProtobuf.Request parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
@@ -209,6 +224,7 @@ public final class RpcProtobuf {
     public static Builder newBuilder(com.fepss.rpc.client.RpcProtobuf.Request prototype) {
       return new Builder().mergeFrom(prototype);
     }
+    public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
@@ -244,7 +260,7 @@ public final class RpcProtobuf {
       }
       
       public com.fepss.rpc.client.RpcProtobuf.Request build() {
-        if (!isInitialized()) {
+        if (result != null && !isInitialized()) {
           throw new com.google.protobuf.UninitializedMessageException(
             result);
         }
@@ -261,6 +277,9 @@ public final class RpcProtobuf {
       }
       
       public com.fepss.rpc.client.RpcProtobuf.Request buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");  }
         com.fepss.rpc.client.RpcProtobuf.Request returnMe = result;
         result = null;
         return returnMe;
@@ -346,7 +365,10 @@ public final class RpcProtobuf {
         return result.getServiceName();
       }
       public Builder setServiceName(java.lang.String value) {
-        result.hasServiceName = true;
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasServiceName = true;
         result.serviceName_ = value;
         return this;
       }
@@ -364,7 +386,10 @@ public final class RpcProtobuf {
         return result.getMethodName();
       }
       public Builder setMethodName(java.lang.String value) {
-        result.hasMethodName = true;
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasMethodName = true;
         result.methodName_ = value;
         return this;
       }
@@ -382,7 +407,10 @@ public final class RpcProtobuf {
         return result.getRequestProto();
       }
       public Builder setRequestProto(com.google.protobuf.ByteString value) {
-        result.hasRequestProto = true;
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasRequestProto = true;
         result.requestProto_ = value;
         return this;
       }
@@ -424,24 +452,28 @@ public final class RpcProtobuf {
     }
     
     // optional bytes response_proto = 1;
+    public static final int RESPONSE_PROTO_FIELD_NUMBER = 1;
     private boolean hasResponseProto;
     private com.google.protobuf.ByteString responseProto_ = com.google.protobuf.ByteString.EMPTY;
     public boolean hasResponseProto() { return hasResponseProto; }
     public com.google.protobuf.ByteString getResponseProto() { return responseProto_; }
     
     // optional string error = 2;
+    public static final int ERROR_FIELD_NUMBER = 2;
     private boolean hasError;
     private java.lang.String error_ = "";
     public boolean hasError() { return hasError; }
     public java.lang.String getError() { return error_; }
     
     // optional bool callback = 3 [default = false];
+    public static final int CALLBACK_FIELD_NUMBER = 3;
     private boolean hasCallback;
     private boolean callback_ = false;
     public boolean hasCallback() { return hasCallback; }
     public boolean getCallback() { return callback_; }
     
     // optional .com.fepss.rpc.client.ErrorReason error_reason = 4;
+    public static final int ERROR_REASON_FIELD_NUMBER = 4;
     private boolean hasErrorReason;
     private com.fepss.rpc.client.RpcProtobuf.ErrorReason errorReason_ = com.fepss.rpc.client.RpcProtobuf.ErrorReason.BAD_REQUEST_DATA;
     public boolean hasErrorReason() { return hasErrorReason; }
@@ -532,6 +564,17 @@ public final class RpcProtobuf {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
+    public static com.fepss.rpc.client.RpcProtobuf.Response parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input).buildParsed();
+    }
+    public static com.fepss.rpc.client.RpcProtobuf.Response parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistry extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input, extensionRegistry)
+               .buildParsed();
+    }
     public static com.fepss.rpc.client.RpcProtobuf.Response parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
@@ -550,6 +593,7 @@ public final class RpcProtobuf {
     public static Builder newBuilder(com.fepss.rpc.client.RpcProtobuf.Response prototype) {
       return new Builder().mergeFrom(prototype);
     }
+    public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
@@ -585,7 +629,7 @@ public final class RpcProtobuf {
       }
       
       public com.fepss.rpc.client.RpcProtobuf.Response build() {
-        if (!isInitialized()) {
+        if (result != null && !isInitialized()) {
           throw new com.google.protobuf.UninitializedMessageException(
             result);
         }
@@ -602,6 +646,9 @@ public final class RpcProtobuf {
       }
       
       public com.fepss.rpc.client.RpcProtobuf.Response buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");  }
         com.fepss.rpc.client.RpcProtobuf.Response returnMe = result;
         result = null;
         return returnMe;
@@ -700,7 +747,10 @@ public final class RpcProtobuf {
         return result.getResponseProto();
       }
       public Builder setResponseProto(com.google.protobuf.ByteString value) {
-        result.hasResponseProto = true;
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasResponseProto = true;
         result.responseProto_ = value;
         return this;
       }
@@ -718,7 +768,10 @@ public final class RpcProtobuf {
         return result.getError();
       }
       public Builder setError(java.lang.String value) {
-        result.hasError = true;
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasError = true;
         result.error_ = value;
         return this;
       }
@@ -754,6 +807,9 @@ public final class RpcProtobuf {
         return result.getErrorReason();
       }
       public Builder setErrorReason(com.fepss.rpc.client.RpcProtobuf.ErrorReason value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
         result.hasErrorReason = true;
         result.errorReason_ = value;
         return this;
@@ -789,18 +845,18 @@ public final class RpcProtobuf {
       descriptor;
   static {
     java.lang.String descriptorData =
-      "\n\036com/fepss/rpc/client/rpc.proto\022\024com.fe" +
-      "pss.rpc.client\"K\n\007Request\022\024\n\014service_nam" +
-      "e\030\001 \002(\t\022\023\n\013method_name\030\002 \002(\t\022\025\n\rrequest_" +
-      "proto\030\003 \002(\014\"\203\001\n\010Response\022\026\n\016response_pro" +
-      "to\030\001 \001(\014\022\r\n\005error\030\002 \001(\t\022\027\n\010callback\030\003 \001(" +
-      "\010:\005false\0227\n\014error_reason\030\004 \001(\0162!.com.fep" +
-      "ss.rpc.client.ErrorReason*\206\001\n\013ErrorReaso" +
-      "n\022\024\n\020BAD_REQUEST_DATA\020\000\022\025\n\021BAD_REQUEST_P" +
-      "ROTO\020\001\022\025\n\021SERVICE_NOT_FOUND\020\002\022\024\n\020METHOD_" +
-      "NOT_FOUND\020\003\022\r\n\tRPC_ERROR\020\004\022\016\n\nRPC_FAILED" +
-      "\020\005B%\n\024com.fepss.rpc.clientB\013RpcProtobufH" +
-      "\001";
+      "\n,src/main/java/com/fepss/rpc/client/rpc" +
+      ".proto\022\024com.fepss.rpc.client\"K\n\007Request\022" +
+      "\024\n\014service_name\030\001 \002(\t\022\023\n\013method_name\030\002 \002" +
+      "(\t\022\025\n\rrequest_proto\030\003 \002(\014\"\203\001\n\010Response\022\026" +
+      "\n\016response_proto\030\001 \001(\014\022\r\n\005error\030\002 \001(\t\022\027\n" +
+      "\010callback\030\003 \001(\010:\005false\0227\n\014error_reason\030\004" +
+      " \001(\0162!.com.fepss.rpc.client.ErrorReason*" +
+      "\206\001\n\013ErrorReason\022\024\n\020BAD_REQUEST_DATA\020\000\022\025\n" +
+      "\021BAD_REQUEST_PROTO\020\001\022\025\n\021SERVICE_NOT_FOUN" +
+      "D\020\002\022\024\n\020METHOD_NOT_FOUND\020\003\022\r\n\tRPC_ERROR\020\004" +
+      "\022\016\n\nRPC_FAILED\020\005B%\n\024com.fepss.rpc.client" +
+      "B\013RpcProtobufH\001";
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(

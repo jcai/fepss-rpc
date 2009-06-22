@@ -33,10 +33,41 @@ public final class TestProto {
     }
     
     // optional string userName = 1;
+    public static final int USERNAME_FIELD_NUMBER = 1;
     private boolean hasUserName;
     private java.lang.String userName_ = "";
     public boolean hasUserName() { return hasUserName; }
     public java.lang.String getUserName() { return userName_; }
+    
+    @Override
+    public final boolean isInitialized() {
+      return true;
+    }
+    
+    @Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (hasUserName()) {
+        output.writeString(1, getUserName());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    @Override
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasUserName()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(1, getUserName());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
     
     public static com.fepss.rpc.test.TestProto.User parseFrom(
         com.google.protobuf.ByteString data)
@@ -72,6 +103,17 @@ public final class TestProto {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
+    public static com.fepss.rpc.test.TestProto.User parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input).buildParsed();
+    }
+    public static com.fepss.rpc.test.TestProto.User parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistry extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input, extensionRegistry)
+               .buildParsed();
+    }
     public static com.fepss.rpc.test.TestProto.User parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
@@ -90,6 +132,7 @@ public final class TestProto {
     public static Builder newBuilder(com.fepss.rpc.test.TestProto.User prototype) {
       return new Builder().mergeFrom(prototype);
     }
+    public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
@@ -125,7 +168,7 @@ public final class TestProto {
       }
       
       public com.fepss.rpc.test.TestProto.User build() {
-        if (!isInitialized()) {
+        if (result != null && !isInitialized()) {
           throw new com.google.protobuf.UninitializedMessageException(
             result);
         }
@@ -142,9 +185,69 @@ public final class TestProto {
       }
       
       public com.fepss.rpc.test.TestProto.User buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");  }
         com.fepss.rpc.test.TestProto.User returnMe = result;
         result = null;
         return returnMe;
+      }
+      
+      @Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.fepss.rpc.test.TestProto.User) {
+          return mergeFrom((com.fepss.rpc.test.TestProto.User)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.fepss.rpc.test.TestProto.User other) {
+        if (other == com.fepss.rpc.test.TestProto.User.getDefaultInstance()) return this;
+        if (other.hasUserName()) {
+          setUserName(other.getUserName());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      @Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return mergeFrom(input,
+          com.google.protobuf.ExtensionRegistry.getEmptyRegistry());
+      }
+      
+      @Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistry extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              setUserName(input.readString());
+              break;
+            }
+          }
+        }
       }
       
       
@@ -156,7 +259,10 @@ public final class TestProto {
         return result.getUserName();
       }
       public Builder setUserName(java.lang.String value) {
-        result.hasUserName = true;
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasUserName = true;
         result.userName_ = value;
         return this;
       }
@@ -198,16 +304,55 @@ public final class TestProto {
     }
     
     // optional string result = 1;
+    public static final int RESULT_FIELD_NUMBER = 1;
     private boolean hasResult;
     private java.lang.String result_ = "";
     public boolean hasResult() { return hasResult; }
     public java.lang.String getResult() { return result_; }
     
     // optional bool success = 2;
+    public static final int SUCCESS_FIELD_NUMBER = 2;
     private boolean hasSuccess;
     private boolean success_ = false;
     public boolean hasSuccess() { return hasSuccess; }
     public boolean getSuccess() { return success_; }
+    
+    @Override
+    public final boolean isInitialized() {
+      return true;
+    }
+    
+    @Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (hasResult()) {
+        output.writeString(1, getResult());
+      }
+      if (hasSuccess()) {
+        output.writeBool(2, getSuccess());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    @Override
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasResult()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(1, getResult());
+      }
+      if (hasSuccess()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, getSuccess());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
     
     public static com.fepss.rpc.test.TestProto.Result parseFrom(
         com.google.protobuf.ByteString data)
@@ -243,6 +388,17 @@ public final class TestProto {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
+    public static com.fepss.rpc.test.TestProto.Result parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input).buildParsed();
+    }
+    public static com.fepss.rpc.test.TestProto.Result parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistry extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeDelimitedFrom(input, extensionRegistry)
+               .buildParsed();
+    }
     public static com.fepss.rpc.test.TestProto.Result parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
@@ -261,6 +417,7 @@ public final class TestProto {
     public static Builder newBuilder(com.fepss.rpc.test.TestProto.Result prototype) {
       return new Builder().mergeFrom(prototype);
     }
+    public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
@@ -296,7 +453,7 @@ public final class TestProto {
       }
       
       public com.fepss.rpc.test.TestProto.Result build() {
-        if (!isInitialized()) {
+        if (result != null && !isInitialized()) {
           throw new com.google.protobuf.UninitializedMessageException(
             result);
         }
@@ -313,9 +470,76 @@ public final class TestProto {
       }
       
       public com.fepss.rpc.test.TestProto.Result buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");  }
         com.fepss.rpc.test.TestProto.Result returnMe = result;
         result = null;
         return returnMe;
+      }
+      
+      @Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.fepss.rpc.test.TestProto.Result) {
+          return mergeFrom((com.fepss.rpc.test.TestProto.Result)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.fepss.rpc.test.TestProto.Result other) {
+        if (other == com.fepss.rpc.test.TestProto.Result.getDefaultInstance()) return this;
+        if (other.hasResult()) {
+          setResult(other.getResult());
+        }
+        if (other.hasSuccess()) {
+          setSuccess(other.getSuccess());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      @Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return mergeFrom(input,
+          com.google.protobuf.ExtensionRegistry.getEmptyRegistry());
+      }
+      
+      @Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistry extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              setResult(input.readString());
+              break;
+            }
+            case 16: {
+              setSuccess(input.readBool());
+              break;
+            }
+          }
+        }
       }
       
       
@@ -327,7 +551,10 @@ public final class TestProto {
         return result.getResult();
       }
       public Builder setResult(java.lang.String value) {
-        result.hasResult = true;
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasResult = true;
         result.result_ = value;
         return this;
       }
@@ -363,6 +590,91 @@ public final class TestProto {
   
   public static abstract class TestService
       implements com.google.protobuf.Service {
+    protected TestService() {}
+    
+    public interface Interface {
+      public abstract void testMethod(
+          com.google.protobuf.RpcController controller,
+          com.fepss.rpc.test.TestProto.User request,
+          com.google.protobuf.RpcCallback<com.fepss.rpc.test.TestProto.Result> done);
+      
+    }
+    
+    public static com.google.protobuf.Service newReflectiveService(
+        final Interface impl) {
+      return new TestService() {
+        @Override
+        public  void testMethod(
+            com.google.protobuf.RpcController controller,
+            com.fepss.rpc.test.TestProto.User request,
+            com.google.protobuf.RpcCallback<com.fepss.rpc.test.TestProto.Result> done) {
+          impl.testMethod(controller, request, done);
+        }
+        
+      };
+    }
+    
+    public static com.google.protobuf.BlockingService
+        newReflectiveBlockingService(final BlockingInterface impl) {
+      return new com.google.protobuf.BlockingService() {
+        public final com.google.protobuf.Descriptors.ServiceDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        
+        public final com.google.protobuf.Message callBlockingMethod(
+            com.google.protobuf.Descriptors.MethodDescriptor method,
+            com.google.protobuf.RpcController controller,
+            com.google.protobuf.Message request)
+            throws com.google.protobuf.ServiceException {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.callBlockingMethod() given method descriptor for " +
+              "wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return impl.testMethod(controller, (com.fepss.rpc.test.TestProto.User)request);
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getRequestPrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getRequestPrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.fepss.rpc.test.TestProto.User.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getResponsePrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getResponsePrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.fepss.rpc.test.TestProto.Result.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+      };
+    }
+    
     public abstract void testMethod(
         com.google.protobuf.RpcController controller,
         com.fepss.rpc.test.TestProto.User request,
@@ -396,7 +708,7 @@ public final class TestProto {
               done));
           return;
         default:
-          throw new java.lang.RuntimeException("Can't get here.");
+          throw new java.lang.AssertionError("Can't get here.");
       }
     }
     
@@ -412,7 +724,7 @@ public final class TestProto {
         case 0:
           return com.fepss.rpc.test.TestProto.User.getDefaultInstance();
         default:
-          throw new java.lang.RuntimeException("Can't get here.");
+          throw new java.lang.AssertionError("Can't get here.");
       }
     }
     
@@ -428,7 +740,7 @@ public final class TestProto {
         case 0:
           return com.fepss.rpc.test.TestProto.Result.getDefaultInstance();
         default:
-          throw new java.lang.RuntimeException("Can't get here.");
+          throw new java.lang.AssertionError("Can't get here.");
       }
     }
     
@@ -437,7 +749,7 @@ public final class TestProto {
       return new Stub(channel);
     }
     
-    public static final class Stub extends com.fepss.rpc.test.TestProto.TestService {
+    public static final class Stub extends com.fepss.rpc.test.TestProto.TestService implements Interface {
       private Stub(com.google.protobuf.RpcChannel channel) {
         this.channel = channel;
       }
@@ -448,7 +760,7 @@ public final class TestProto {
         return channel;
       }
       
-      public void testMethod(
+      public  void testMethod(
           com.google.protobuf.RpcController controller,
           com.fepss.rpc.test.TestProto.User request,
           com.google.protobuf.RpcCallback<com.fepss.rpc.test.TestProto.Result> done) {
@@ -462,6 +774,38 @@ public final class TestProto {
             com.fepss.rpc.test.TestProto.Result.class,
             com.fepss.rpc.test.TestProto.Result.getDefaultInstance()));
       }
+    }
+    
+    public static BlockingInterface newBlockingStub(
+        com.google.protobuf.BlockingRpcChannel channel) {
+      return new BlockingStub(channel);
+    }
+    
+    public interface BlockingInterface {
+      public com.fepss.rpc.test.TestProto.Result testMethod(
+          com.google.protobuf.RpcController controller,
+          com.fepss.rpc.test.TestProto.User request)
+          throws com.google.protobuf.ServiceException;
+    }
+    
+    private static final class BlockingStub implements BlockingInterface {
+      private BlockingStub(com.google.protobuf.BlockingRpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.BlockingRpcChannel channel;
+      
+      public com.fepss.rpc.test.TestProto.Result testMethod(
+          com.google.protobuf.RpcController controller,
+          com.fepss.rpc.test.TestProto.User request)
+          throws com.google.protobuf.ServiceException {
+        return (com.fepss.rpc.test.TestProto.Result) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.fepss.rpc.test.TestProto.Result.getDefaultInstance());
+      }
+      
     }
   }
   
@@ -484,11 +828,12 @@ public final class TestProto {
       descriptor;
   static {
     java.lang.String descriptorData =
-      "\n\ntest.proto\022\014protobuf.rpc\"\030\n\004User\022\020\n\010us" +
-      "erName\030\001 \001(\t\")\n\006Result\022\016\n\006result\030\001 \001(\t\022\017" +
-      "\n\007success\030\002 \001(\0102E\n\013TestService\0226\n\nTestMe" +
-      "thod\022\022.protobuf.rpc.User\032\024.protobuf.rpc." +
-      "ResultB\037\n\022com.fepss.rpc.testB\tTestProto";
+      "\n\030src/test/java/test.proto\022\014protobuf.rpc" +
+      "\"\030\n\004User\022\020\n\010userName\030\001 \001(\t\")\n\006Result\022\016\n\006" +
+      "result\030\001 \001(\t\022\017\n\007success\030\002 \001(\0102E\n\013TestSer" +
+      "vice\0226\n\nTestMethod\022\022.protobuf.rpc.User\032\024" +
+      ".protobuf.rpc.ResultB\037\n\022com.fepss.rpc.te" +
+      "stB\tTestProto";
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
