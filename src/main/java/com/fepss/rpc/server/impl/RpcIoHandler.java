@@ -149,7 +149,7 @@ public class RpcIoHandler extends IoHandlerAdapter {
 	public void exceptionCaught(IoSession session, Throwable cause)
 			throws Exception {
 		logger.warn("RPC Server Error", cause);
-		Builder builder = Response.newBuilder().setError(cause.toString());
+		Builder builder = Response.newBuilder().setError(String.valueOf(cause));
 		if (cause instanceof RpcException) {
 			RpcException rpcException = (RpcException) cause;
 			if (rpcException.getReason() != null) {
