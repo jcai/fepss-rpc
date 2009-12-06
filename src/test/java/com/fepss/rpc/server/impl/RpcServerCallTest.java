@@ -9,15 +9,10 @@ import junit.framework.Assert;
 import org.apache.mina.core.service.IoHandler;
 import org.easymock.EasyMock;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.fepss.rpc.client.RpcChannelImpl;
-import com.fepss.rpc.server.RpcServer;
-import com.fepss.rpc.server.impl.RpcIoHandler;
-import com.fepss.rpc.server.impl.RpcServerImpl;
 import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.Result;
 import com.fepss.rpc.test.TestProto.TestService;

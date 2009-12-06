@@ -1,28 +1,20 @@
 package com.fepss.rpc;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
-import org.apache.mina.core.service.IoHandler;
 import org.testng.Assert;
 
 import com.fepss.rpc.client.RpcChannelImpl;
-import com.fepss.rpc.server.impl.RpcIoHandler;
-import com.fepss.rpc.server.impl.RpcServerImpl;
-import com.fepss.rpc.test.TestServiceImpl;
 import com.fepss.rpc.test.TestProto.Result;
 import com.fepss.rpc.test.TestProto.TestService;
 import com.fepss.rpc.test.TestProto.User;
 import com.fepss.rpc.test.TestProto.TestService.Stub;
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
-import com.google.protobuf.Service;
 
 public class PerformanceMain {
 
-	private static RpcServerImpl server;
 	private static String host;
 	private static int port;
 
@@ -106,7 +98,7 @@ public class PerformanceMain {
 
 	  private boolean isAlive;
 
-	  private LinkedList taskQueue;
+	  private LinkedList<Runnable> taskQueue;
 
 	  private int threadID;
 
@@ -124,7 +116,7 @@ public class PerformanceMain {
 
 	    isAlive = true;
 
-	    taskQueue = new LinkedList();
+	    taskQueue = new LinkedList<Runnable>();
 	    for (int i = 0; i < numThreads; i++) {
 	      new PooledThread().start();
 	    }
