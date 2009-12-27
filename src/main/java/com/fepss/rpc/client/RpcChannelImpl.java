@@ -97,7 +97,6 @@ public class RpcChannelImpl implements RpcChannel {
 				}
 				Response rpcResponse = (Response) message;
 				handleResponse(responsePrototype, rpcResponse, controller, done);
-				//处理完请求，立即关闭
 				session.close(true);
 			}
 
