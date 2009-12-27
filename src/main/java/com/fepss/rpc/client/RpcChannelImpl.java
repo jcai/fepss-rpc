@@ -22,6 +22,7 @@ import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,6 +109,8 @@ public class RpcChannelImpl implements RpcChannel {
 				if(logger.isDebugEnabled()){
 					logger.debug("open session");
 				}
+		            ((SocketSessionConfig) session.getConfig()).setKeepAlive(true);
+
     			// Create request protocol buffer
     			Request rpcRequest = Request.newBuilder().setRequestProto(
     					request.toByteString()).setServiceName(
