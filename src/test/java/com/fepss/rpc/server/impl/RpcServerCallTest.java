@@ -111,7 +111,7 @@ public class RpcServerCallTest {
 			// execute remote method
 			service.testMethod(controller, request, done);
 			Assert.assertTrue(controller.failed());
-			Assert.assertEquals(controller.errorText(), "RPC_ERROR : java.lang.RuntimeException: try to throw exception!");
+			Assert.assertEquals(controller.errorText(), "RPC_ERROR : com.fepss.rpc.RpcException: java.lang.RuntimeException: try to throw exception!");
 		} finally {
 		}
 	}
