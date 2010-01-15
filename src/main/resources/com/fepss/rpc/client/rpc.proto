@@ -28,6 +28,7 @@ enum ErrorReason {
     METHOD_NOT_FOUND = 3;
     RPC_ERROR = 4;
     RPC_FAILED = 5;
+    CLIENT_FAILED=6;
   }
 message Request {
 

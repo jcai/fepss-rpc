@@ -28,14 +28,20 @@ public class RpcException extends RuntimeException {
 	private static final long serialVersionUID = 8146528988781443238L;
 	private ErrorReason reason;
 
-	public RpcException(ErrorReason errorReason, String message) {
-		super(message);
+	public RpcException(ErrorReason errorReason, Throwable cause) {
+		super(cause);
 		this.reason = errorReason;
 	}
 	public RpcException(ErrorReason errorReason,
 			Exception e) {
 		super(e);
 		this.reason = errorReason;
+	}
+
+	public RpcException(ErrorReason errorReason, String message) {
+		super(message);
+		this.reason = errorReason;
+		
 	}
 	/**
 	 * @return the reason

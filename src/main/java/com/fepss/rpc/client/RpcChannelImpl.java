@@ -15,6 +15,8 @@
  */
 package com.fepss.rpc.client;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.net.InetSocketAddress;
 
 import org.apache.mina.core.future.ConnectFuture;
@@ -119,12 +121,26 @@ public class RpcChannelImpl implements RpcChannel {
     			// Write request
     			 session.write(rpcRequest);
     			}
+
+			/**
+			 * @see org.apache.mina.core.service.IoHandlerAdapter#exceptionCaught(org.apache.mina.core.session.IoSession, java.lang.Throwable)
+			 */
+			@Override
+			public void exceptionCaught(IoSession session, Throwable cause)
+					throws Exception {
+				logger.warn("client application has runtime exception!");
+				StringBuilder errorBuilder = new StringBuilder();
+				errorBuilder.append("client has runtime exception!\n");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				cause.printStackTrace(new PrintStream(out));
+				errorBuilder.append(out.toString());
+				controller.setFailed(errorBuilder.toString());
+			}
+			
 		});
 
 		// connect remote server
 		ConnectFuture cf = connector.connect(new InetSocketAddress(host, port));
-
-
 		try {
 			cf.awaitUninterruptibly();// wait to connect remote server
 			cf.getSession().getCloseFuture().awaitUninterruptibly();
@@ -132,7 +148,6 @@ public class RpcChannelImpl implements RpcChannel {
 			connector.dispose();
 		}
 	}
-
 	private void handleResponse(Message responsePrototype,
 			Response rpcResponse, RpcController controller,
 			RpcCallback<Message> callback) {

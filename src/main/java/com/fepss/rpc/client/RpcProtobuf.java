@@ -15,6 +15,7 @@ public final class RpcProtobuf {
     METHOD_NOT_FOUND(3, 3),
     RPC_ERROR(4, 4),
     RPC_FAILED(5, 5),
+    CLIENT_FAILED(6, 6),
     ;
     
     
@@ -28,6 +29,7 @@ public final class RpcProtobuf {
         case 3: return METHOD_NOT_FOUND;
         case 4: return RPC_ERROR;
         case 5: return RPC_FAILED;
+        case 6: return CLIENT_FAILED;
         default: return null;
       }
     }
@@ -46,7 +48,7 @@ public final class RpcProtobuf {
     }
     
     private static final ErrorReason[] VALUES = {
-      BAD_REQUEST_DATA, BAD_REQUEST_PROTO, SERVICE_NOT_FOUND, METHOD_NOT_FOUND, RPC_ERROR, RPC_FAILED, 
+      BAD_REQUEST_DATA, BAD_REQUEST_PROTO, SERVICE_NOT_FOUND, METHOD_NOT_FOUND, RPC_ERROR, RPC_FAILED, CLIENT_FAILED, 
     };
     public static ErrorReason valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
@@ -845,18 +847,18 @@ public final class RpcProtobuf {
       descriptor;
   static {
     java.lang.String descriptorData =
-      "\n,src/main/java/com/fepss/rpc/client/rpc" +
-      ".proto\022\024com.fepss.rpc.client\"K\n\007Request\022" +
-      "\024\n\014service_name\030\001 \002(\t\022\023\n\013method_name\030\002 \002" +
-      "(\t\022\025\n\rrequest_proto\030\003 \002(\014\"\203\001\n\010Response\022\026" +
-      "\n\016response_proto\030\001 \001(\014\022\r\n\005error\030\002 \001(\t\022\027\n" +
-      "\010callback\030\003 \001(\010:\005false\0227\n\014error_reason\030\004" +
-      " \001(\0162!.com.fepss.rpc.client.ErrorReason*" +
-      "\206\001\n\013ErrorReason\022\024\n\020BAD_REQUEST_DATA\020\000\022\025\n" +
-      "\021BAD_REQUEST_PROTO\020\001\022\025\n\021SERVICE_NOT_FOUN" +
-      "D\020\002\022\024\n\020METHOD_NOT_FOUND\020\003\022\r\n\tRPC_ERROR\020\004" +
-      "\022\016\n\nRPC_FAILED\020\005B%\n\024com.fepss.rpc.client" +
-      "B\013RpcProtobufH\001";
+      "\n\036com/fepss/rpc/client/rpc.proto\022\024com.fe" +
+      "pss.rpc.client\"K\n\007Request\022\024\n\014service_nam" +
+      "e\030\001 \002(\t\022\023\n\013method_name\030\002 \002(\t\022\025\n\rrequest_" +
+      "proto\030\003 \002(\014\"\203\001\n\010Response\022\026\n\016response_pro" +
+      "to\030\001 \001(\014\022\r\n\005error\030\002 \001(\t\022\027\n\010callback\030\003 \001(" +
+      "\010:\005false\0227\n\014error_reason\030\004 \001(\0162!.com.fep" +
+      "ss.rpc.client.ErrorReason*\231\001\n\013ErrorReaso" +
+      "n\022\024\n\020BAD_REQUEST_DATA\020\000\022\025\n\021BAD_REQUEST_P" +
+      "ROTO\020\001\022\025\n\021SERVICE_NOT_FOUND\020\002\022\024\n\020METHOD_" +
+      "NOT_FOUND\020\003\022\r\n\tRPC_ERROR\020\004\022\016\n\nRPC_FAILED" +
+      "\020\005\022\021\n\rCLIENT_FAILED\020\006B%\n\024com.fepss.rpc.c" +
+      "lientB\013RpcProtobufH\001";
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
