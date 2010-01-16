@@ -15,6 +15,8 @@
  */
 package com.fepss.rpc.codec;
 
+import java.io.BufferedInputStream;
+
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoderAdapter;
@@ -40,7 +42,8 @@ public class ProtobufResponseDecoder extends ProtocolDecoderAdapter {
 	@Override
 	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out)
 			throws Exception {
-		Builder builder = RpcProtobuf.Response.newBuilder().mergeFrom(in.asInputStream());
+		BufferedInputStream bis = new BufferedInputStream(in.asInputStream());
+		Builder builder = RpcProtobuf.Response.newBuilder().mergeFrom(bis);
 		Response response= builder.build();
 		out.write(response);
 	}

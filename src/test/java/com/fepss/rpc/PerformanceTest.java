@@ -50,7 +50,7 @@ public class PerformanceTest {
 	 * @param args
 	 * @throws IOException
 	 */
-//	@Test(invocationCount = 100000, threadPoolSize = 1000)
+//	@Test(invocationCount = 1000000, threadPoolSize = 1000)
 	@Test
 	public void testRpcServer() throws IOException {
 		final RpcController mock = EasyMock.createMock(RpcController.class);
