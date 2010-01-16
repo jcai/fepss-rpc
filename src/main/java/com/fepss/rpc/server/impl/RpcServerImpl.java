@@ -29,9 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fepss.rpc.RpcSymbols;
-import com.fepss.rpc.codec.ProtobufMessageEncoder;
-import com.fepss.rpc.codec.ProtobufRequestDecoder;
+import com.fepss.rpc.client.RpcProtobuf;
+import com.fepss.rpc.codec.mina.ProtobufDecoder;
+import com.fepss.rpc.codec.mina.ProtobufEncoder;
 import com.fepss.rpc.server.RpcServer;
+import com.google.protobuf.Message.Builder;
 
 /**
  * RPC Server
@@ -73,12 +75,22 @@ public class RpcServerImpl implements RpcServer {
 		acceptor.setDefaultLocalAddress(new InetSocketAddress(port));
 		DefaultIoFilterChainBuilder chain = acceptor.getFilterChain();
 //		chain.addLast("executor", new ExecutorFilter(executor));
+		/*
 		chain.addLast("codec", new ProtocolCodecFilter(
 				ProtobufMessageEncoder.class, ProtobufRequestDecoder.class));
+		*/
+		addProtobufCodec(chain);
 		acceptor.setHandler(ioHandler);
 		acceptor.bind(new InetSocketAddress(host, port));
 	}
 
+	private void addProtobufCodec(DefaultIoFilterChainBuilder chain){
+		chain.addLast("protobuf", new ProtocolCodecFilter(new ProtobufEncoder(),new ProtobufDecoder(){
+			@Override
+			protected Builder newBuilder() {
+				return RpcProtobuf.Request.newBuilder();
+			}}));
+	}
 	/**
 	 * @see com.fepss.rpc.server.RpcServer#stop()
 	 */

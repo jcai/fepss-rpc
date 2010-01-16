@@ -19,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 
+import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.service.IoHandlerAdapter;
@@ -33,8 +34,8 @@ import com.fepss.rpc.RpcException;
 import com.fepss.rpc.client.RpcProtobuf.ErrorReason;
 import com.fepss.rpc.client.RpcProtobuf.Request;
 import com.fepss.rpc.client.RpcProtobuf.Response;
-import com.fepss.rpc.codec.ProtobufMessageEncoder;
-import com.fepss.rpc.codec.ProtobufResponseDecoder;
+import com.fepss.rpc.codec.mina.ProtobufDecoder;
+import com.fepss.rpc.codec.mina.ProtobufEncoder;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.RpcCallback;
@@ -85,10 +86,13 @@ public class RpcChannelImpl implements RpcChannel {
 		IoConnector connector = new NioSocketConnector();
 
 		// add protocol buffer codec
+		/*
 		connector.getFilterChain().addLast(
 				"codec",
 				new ProtocolCodecFilter(ProtobufMessageEncoder.class,
 						ProtobufResponseDecoder.class));
+						*/
+		addProtobufCodec(connector.getFilterChain());
 
 		// connector handler
 		connector.setHandler(new IoHandlerAdapter() {
@@ -148,6 +152,14 @@ public class RpcChannelImpl implements RpcChannel {
 			connector.dispose();
 		}
 	}
+	private void addProtobufCodec(DefaultIoFilterChainBuilder filterChain) {
+		filterChain.addLast("protobuf", new ProtocolCodecFilter(new ProtobufEncoder(),new ProtobufDecoder(){
+			@Override
+			protected Message.Builder newBuilder() {
+				return RpcProtobuf.Response.newBuilder();
+			}}));
+	}
+
 	private void handleResponse(Message responsePrototype,
 			Response rpcResponse, RpcController controller,
 			RpcCallback<Message> callback) {
